@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Swiggy Test</string>
+    <string name="harry_cafe">Harry\'s Bar + Cafe</string>
+    <string name="cafe">Cafe, American</string>
+    <string name="cost_for_two">RRR</string>
+    <string name="rating">3.9</string>
+    <string name="variouss_outlets">4 outlets</string>
+    <string name="swiggy_image">Swiggy Image</string>
+</resources>
