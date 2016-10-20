@@ -1,8 +1,12 @@
 package com.razor.myprogressbar.holders;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -71,7 +75,9 @@ public class RestaurantViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setOutletCost(@Nullable String outletCost){
-        outletCostTv.setText(outletCost);
+        Spannable wordtoSpan = new SpannableString(mContext.getString(R.string.cost_for_two));
+        wordtoSpan.setSpan(new ForegroundColorSpan(Color.GREEN), 0, outletCost.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        outletCostTv.setText(wordtoSpan);
     }
 
     public void setoutletRating(@Nullable String outletRating){

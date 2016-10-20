@@ -1,7 +1,9 @@
 package com.razor.myprogressbar;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -38,8 +40,14 @@ public class MainActivity extends AppCompatActivity implements LoaderHelper {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        callApi();
+    }
+
+    private void callApi() {
         if (Utility.isNetworkAvailable(this)){
             getStateCityList();
+        }else {
+            showError(getString(R.string.no_network));
         }
     }
 
@@ -74,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements LoaderHelper {
             @Override
             public void onFailure(Throwable t) {
                 isLoading = false;
+                showError(t.getMessage());
             }
         });
     }
@@ -93,5 +102,24 @@ public class MainActivity extends AppCompatActivity implements LoaderHelper {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mPageNumber = savedInstanceState.getInt(PAGE_NUMBER,0);
+    }
+
+    private void showError(String error){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton(R.string.retry, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                callApi();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        builder.setMessage(error);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

@@ -5,5 +5,5 @@ package com.razor.myprogressbar.listeners;
  */
 
 public interface LoaderHelper {
-    public void loadMoreOutlets();
+    void loadMoreOutlets();
 }
